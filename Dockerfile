@@ -11,8 +11,12 @@ ENV HOME /home/${NB_USER}
 WORKDIR ${HOME}
 
 USER root
-RUN apt-get update
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y curl
+
+# RUN apt-get update
+# RUN DEBIAN_FRONTEND=noninteractive apt-get install -y curl
+
+RUN apt-get update \
+  && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends curl
 
 ENV \
   # Enable detection of running in a container
