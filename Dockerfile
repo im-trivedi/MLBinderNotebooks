@@ -11,8 +11,8 @@ ENV HOME /home/${NB_USER}
 WORKDIR ${HOME}
 
 USER root
-RUN apt update
-RUN apt install -y curl
+RUN apt-get update
+RUN apt-get install -y curl apt-utils
 
 ENV \
   # Enable detection of running in a container
@@ -25,8 +25,8 @@ ENV \
   DOTNET_INTERACTIVE_CLI_TELEMETRY_OPTOUT=true
 
 # Install .NET CLI dependencies
-RUN apt update \
-  && DEBIAN_FRONTEND=noninteractive apt install -y --no-install-recommends \
+RUN apt-get update \
+  && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
   libc6 \
   libgcc1 \
   libgssapi-krb5-2 \
