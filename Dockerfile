@@ -12,7 +12,7 @@ WORKDIR ${HOME}
 
 USER root
 RUN apt-get update
-RUN apt-get install -y curl apt-utils
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y curl
 
 ENV \
   # Enable detection of running in a container
