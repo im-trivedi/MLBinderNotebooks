@@ -13,7 +13,7 @@ WORKDIR ${HOME}
 USER root
 
 RUN apt-get update
-RUN apt-get install -y curl
+RUN apt-get install -y curl libssl3 libicu-dev apt-utils
 
 ENV \
   # Enable detection of running in a container
@@ -32,7 +32,7 @@ RUN apt-get update \
   libgcc1 \
   libgssapi-krb5-2 \
   libssl3 \
-  libicu71 \
+  libicu-dev \
   apt-utils \
   libstdc++6 \
   zlib1g \
