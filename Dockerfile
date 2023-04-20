@@ -35,6 +35,7 @@ RUN apt-get update \
   libicu-dev \
   libstdc++6 \
   zlib1g \
+  apt-utils >/dev/null 2>&1 \
   && rm -rf /var/lib/apt/lists/*
 
 # Install .NET Core SDK
