@@ -13,7 +13,7 @@ WORKDIR ${HOME}
 USER root
 
 RUN apt-get update
-RUN apt-get install -y curl libicu66 libssl1.1
+RUN apt-get install -y curl libssl-dev
 
 ENV \
   # Enable detection of running in a container
