@@ -13,7 +13,7 @@ WORKDIR ${HOME}
 USER root
 
 RUN apt-get update
-RUN apt-get install -y curl libssl-dev
+RUN apt-get install -y curl
 
 ENV \
   # Enable detection of running in a container
@@ -31,8 +31,7 @@ RUN apt-get update \
   libc6 \
   libgcc1 \
   libgssapi-krb5-2 \
-  libicu66 \
-  libssl1.1 \
+  libssl3 \
   libstdc++6 \
   zlib1g \
   && rm -rf /var/lib/apt/lists/*
