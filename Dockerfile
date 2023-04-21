@@ -13,7 +13,7 @@ WORKDIR ${HOME}
 USER root
 
 RUN apt-get update
-RUN apt-get install -y curl
+RUN apt-get install -y curl git
 
 ENV \
   # Enable detection of running in a container
