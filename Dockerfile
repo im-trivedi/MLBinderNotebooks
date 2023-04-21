@@ -27,7 +27,7 @@ ENV \
 
 # Install .NET CLI dependencies
 RUN apt-get update \
-  && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+  && DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends \
   libc6 \
   libgcc1 \
   libgssapi-krb5-2 \
