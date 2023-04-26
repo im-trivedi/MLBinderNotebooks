@@ -100,5 +100,11 @@ RUN dotnet interactive jupyter install
 # Enable telemetry once we install jupyter for the image
 ENV DOTNET_INTERACTIVE_CLI_TELEMETRY_OPTOUT=false
 
+# Install tslab
+RUN npm install -g tslab \
+& tslab install --version\
+& tslab install [--python=python3] \
+& jupyter kernelspec list
+
 # Set root to notebooks
 WORKDIR ${HOME}/notebooks/
