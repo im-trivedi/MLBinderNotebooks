@@ -109,8 +109,8 @@ RUN tslab install --version \
 
 # Clone tslab-examples
 RUN tslab_path=${HOME}/notebooks/tslab \
-&& git clone --depth 1 https://github.com/yunabe/tslab-examples.git tslab_path \
-&& cd tslab_path \
+&& git clone --depth 1 https://github.com/yunabe/tslab-examples.git $tslab_path \
+&& cd $tslab_path \
 && yarn
 
 # Set root to notebooks
