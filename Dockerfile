@@ -106,7 +106,7 @@ RUN tslab install \
 & jupyter kernelspec list
 
 # Clone tslab-examples
-RUN git clone --depth 1 https://github.com/yunabe/tslab-examples.git ${HOME}/notebooks/
+RUN git clone --depth 1 https://github.com/yunabe/tslab-examples.git ${HOME}/notebooks/tslab-examples
 WORKDIR ${HOME}/notebooks/tslab-examples
 RUN yarn
 
