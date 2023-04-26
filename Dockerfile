@@ -83,7 +83,9 @@ USER ${USER}
 
 
 # Install nteract 
-RUN pip install nteract_on_jupyter
+RUN pip install nteract_on_jupyter \
+jupyter_contrib_nbextensions \
+jupyter-autocomplete
 
 # Install lastest build of Microsoft.DotNet.Interactive
 #RUN dotnet tool install -g Microsoft.dotnet-interactive --add-source "https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet-experimental/nuget/v3/index.json"
