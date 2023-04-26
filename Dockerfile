@@ -38,9 +38,6 @@ RUN apt-get update \
   apt-utils >/dev/null 2>&1 \
   && rm -rf /var/lib/apt/lists/*
 
-# Install NVM
-RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
-
 # Install .NET Core SDK
 
 # When updating the SDK version, the sha512 value a few lines down must also be updated.
