@@ -101,8 +101,8 @@ RUN dotnet interactive jupyter install
 ENV DOTNET_INTERACTIVE_CLI_TELEMETRY_OPTOUT=false
 
 # Install tslab
-RUN npm install -g tslab \
-& tslab install --version\
+RUN npm install -g tslab
+RUN tslab install --version \
 & tslab install [--python=python3] \
 & jupyter kernelspec list
 
