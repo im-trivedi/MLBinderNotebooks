@@ -102,8 +102,9 @@ ENV DOTNET_INTERACTIVE_CLI_TELEMETRY_OPTOUT=false
 
 # Install tslab
 RUN npm install -g tslab yarn
-RUN tslab install \
-& jupyter kernelspec list
+RUN tslab install
+RUN tslab install --version \
+&& jupyter kernelspec list
 
 # Clone tslab-examples
 RUN git clone --depth 1 https://github.com/yunabe/tslab-examples.git ${HOME}/notebooks/tslab-examples
