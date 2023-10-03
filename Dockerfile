@@ -45,7 +45,7 @@ RUN apt-get update \
   apt-utils >/dev/null 2>&1 \
   && rm -rf /var/lib/apt/lists/*
 
-RUN apt-get install curl wget git
+RUN apt-get update && apt-get install -y curl wget git
 
 # Install Go
 RUN wget --quiet --output-document=- "https://go.dev/dl/go${GO_VERSION}.linux-amd64.tar.gz" | tar -xz \
