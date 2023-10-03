@@ -33,7 +33,7 @@ ENV PATH="$PATH:$GOROOT/bin:$GOPATH/bin"
 RUN echo "$PATH"
 
 # Install .NET CLI dependencies
-RUN apt update \
+RUN apt-get update \
   && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
   libc6 \
   libgcc1 \
@@ -45,7 +45,7 @@ RUN apt update \
   apt-utils >/dev/null 2>&1 \
   && rm -rf /var/lib/apt/lists/*
 
-RUN apt install curl wget git
+RUN apt-get install curl wget git
 
 # Install Go
 RUN wget --quiet --output-document=- "https://go.dev/dl/go${GO_VERSION}.linux-amd64.tar.gz" | tar -xz \
