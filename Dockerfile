@@ -13,7 +13,7 @@ WORKDIR ${HOME}
 USER root
 
 RUN apt-get update
-RUN apt-get install -y curl git
+RUN apt-get install -y curl wget git
 
 ENV \
   # Enable detection of running in a container
@@ -23,7 +23,17 @@ ENV \
   # Skip extraction of XML docs - generally not useful within an image/container - helps performance
   NUGET_XMLDOC_MODE=skip \
   # Opt out of telemetry until after we install jupyter when building the image, this prevents caching of machine id
-  DOTNET_INTERACTIVE_CLI_TELEMETRY_OPTOUT=true
+  DOTNET_INTERACTIVE_CLI_TELEMETRY_OPTOUT=true \
+  # Go Version
+  GO_VERSION=1.21.0 \
+  # Go Root Path
+  GOROOT=/usr/local/go \
+  # Go Path
+  GOPATH=${HOME}/go
+  
+# Go Path Set
+ENV PATH="$PATH:$GOROOT/bin:$GOPATH/bin"
+RUN echo "$PATH"
 
 # Install .NET CLI dependencies
 RUN apt-get update \
@@ -37,6 +47,20 @@ RUN apt-get update \
   zlib1g \
   apt-utils >/dev/null 2>&1 \
   && rm -rf /var/lib/apt/lists/*
+
+# Install Go
+RUN wget --quiet --output-document=- "https://go.dev/dl/go${GO_VERSION}.linux-amd64.tar.gz" | tar -xz \
+    && go version
+
+RUN \
+  go install github.com/gopherdata/gophernotes@v0.7.5 \
+  mkdir -p ~/.local/share/jupyter/kernels/gophernotes \
+  cd ~/.local/share/jupyter/kernels/gophernotes \
+  cp "$(go env GOPATH)"/pkg/mod/github.com/gopherdata/gophernotes@v0.7.5/kernel/*  "." \
+  # in case copied kernel.json has no write permission
+  chmod +w ./kernel.json \
+  sed "s|gophernotes|$(go env GOPATH)/bin/gophernotes|" < kernel.json.in > kernel.json \
+  "$(go env GOPATH)"/bin/gophernotes
 
 # Install .NET Core SDK
 
