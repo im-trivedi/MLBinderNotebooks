@@ -22,12 +22,9 @@ ENV \
   # Opt out of telemetry until after we install jupyter when building the image, this prevents caching of machine id
   DOTNET_INTERACTIVE_CLI_TELEMETRY_OPTOUT=true \
   # Go Version
-  GO_VERSION=1.22.2 \
-  # Go Path
-  GOPATH=${HOME}/go
+  GO_VERSION=1.22.2 
   
 # Go Path Set
-ENV PATH="$PATH:$GOPATH/bin"
 RUN echo "$PATH"  \
   && mkdir -p /usr/bin/dotnet \
   && ln -s /usr/bin/dotnet
