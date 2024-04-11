@@ -56,6 +56,7 @@ RUN jupyter --data-dir
 RUN wget --quiet --output-document=- "https://go.dev/dl/go${GO_VERSION}.linux-amd64.tar.gz" | tar -xz \
     && go version
 
+# Run sed command with kernel.json.in
 RUN \
   go install github.com/gopherdata/gophernotes@v0.7.5 \
   mkdir -p ~/.local/share/jupyter/kernels/gophernotes \
@@ -63,7 +64,8 @@ RUN \
   cp "$(go env GOPATH)"/pkg/mod/github.com/gopherdata/gophernotes@v0.7.5/kernel/*  "." \
   # in case copied kernel.json has no write permission
   chmod +w ./kernel.json \
-  sed "s|gophernotes|$(go env GOPATH)/bin/gophernotes|" < kernel.json.in > kernel.json \
+  COPY ./kernel.json.in /tmp/kernel.json.in \
+  sed "s|gophernotes|$(go env GOPATH)/bin/gophernotes|" < /tmp/kernel.json.in > kernel.json \
   "$(go env GOPATH)"/bin/gophernotes
 
 # Install .NET Core SDK
