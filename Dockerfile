@@ -43,6 +43,8 @@ ENV PATH="$PATH:/usr/local/go/bin"
 
 RUN go version
 
+RUN echo "$(go env GOPATH)"
+
 RUN \
   go install github.com/gopherdata/gophernotes@v0.7.5 \
   mkdir -p ~/.local/share/jupyter/kernels/gophernotes \
