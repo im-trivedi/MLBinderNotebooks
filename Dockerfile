@@ -23,8 +23,6 @@ ENV \
   DOTNET_INTERACTIVE_CLI_TELEMETRY_OPTOUT=true \
   # Go Version
   GO_VERSION=1.22.2 \
-  # Go Root Path
-  GOROOT=/usr/share/go \
   # Go Path
   GOPATH=${HOME}/go
   
