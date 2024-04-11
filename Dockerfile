@@ -21,11 +21,7 @@ ENV \
   NUGET_XMLDOC_MODE=skip \
   # Opt out of telemetry until after we install jupyter when building the image, this prevents caching of machine id
   DOTNET_INTERACTIVE_CLI_TELEMETRY_OPTOUT=true \
-  # Go Version
-  GO_VERSION=1.22.2 
   
-# Go Path Set
-ENV PATH="$PATH:usr/local/go/bin"
 RUN echo "$PATH"  \
   && mkdir -p /usr/bin/dotnet \
   && ln -s /usr/bin/dotnet
@@ -44,19 +40,6 @@ RUN apt-get update \
   && rm -rf /var/lib/apt/lists/*
 
 RUN apt-get update && apt-get install -y curl wget git
-
-RUN jupyter --data-dir
-
-# Install Go
-RUN wget --quiet --output-document=- "https://go.dev/dl/go${GO_VERSION}.linux-amd64.tar.gz" | tar -xz -C /usr/local \
-    && go version
-  
-RUN go install github.com/gopherdata/gophernotes@v0.7.5
-
-RUN mkdir -p ~/.local/share/jupyter/kernels/gophernotes \
-  cd ~/.local/share/jupyter/kernels/gophernotes \
-  cp "$(go env GOPATH)"/pkg/mod/github.com/gopherdata/gophernotes@v0.7.5/kernel/*  "." \
-  "$(go env GOPATH)"/bin/gophernotes
 
 # Install .NET Core SDK
 
