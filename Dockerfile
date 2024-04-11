@@ -37,6 +37,12 @@ RUN apt-get update \
 
 RUN apt-get update && apt-get install -y curl wget git
 
+RUN rm -rf /usr/local/go && wget --quiet --output-document=- "https://go.dev/dl/go1.22.2.linux-amd64.tar.gz" | tar -xz
+
+ENV PATH="$PATH:/usr/local/go/bin"
+
+RUN go version
+
 # Install .NET Core SDK
 
 # When updating the SDK version, the sha512 value a few lines down must also be updated.
