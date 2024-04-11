@@ -56,9 +56,9 @@ RUN jupyter --data-dir
 RUN wget --quiet --output-document=- "https://go.dev/dl/go${GO_VERSION}.linux-amd64.tar.gz" | tar -xz \
     && go version
   
-RUN \
-  go install github.com/gopherdata/gophernotes@v0.7.5 GO111MODULE=on \
-  mkdir -p ~/.local/share/jupyter/kernels/gophernotes \
+RUN go install github.com/gopherdata/gophernotes@v0.7.5
+
+RUN mkdir -p ~/.local/share/jupyter/kernels/gophernotes \
   cd ~/.local/share/jupyter/kernels/gophernotes \
   cp "$(go env GOPATH)"/pkg/mod/github.com/gopherdata/gophernotes@v0.7.5/kernel/*  "." \
   "$(go env GOPATH)"/bin/gophernotes
