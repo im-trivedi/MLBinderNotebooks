@@ -53,12 +53,12 @@ RUN apt-get update && apt-get install -y curl wget git
 # Install Go
 RUN wget --quiet --output-document=- "https://go.dev/dl/go${GO_VERSION}.linux-amd64.tar.gz" | tar -xz \
     && go version
-
+    
 RUN \
-  go install github.com/gopherdata/gophernotes \
+  go install github.com/gopherdata/gophernotes@v0.7.5 \
   mkdir -p ~/.local/share/jupyter/kernels/gophernotes \
   cd ~/.local/share/jupyter/kernels/gophernotes \
-  cp "$(go env GOPATH)"/pkg/mod/github.com/gopherdata/gophernotes/kernel/*  "." \
+  cp "$(go env GOPATH)"/pkg/mod/github.com/gopherdata/gophernotes@v0.7.5/kernel/*  "." \
   # in case copied kernel.json has no write permission
   chmod +w ./kernel.json \
   sed "s|gophernotes|$(go env GOPATH)/bin/gophernotes|" < kernel.json.in > kernel.json \
