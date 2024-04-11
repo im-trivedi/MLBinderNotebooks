@@ -39,9 +39,9 @@ RUN apt-get update \
 
 RUN apt-get update && apt-get install -y curl wget git
 
-RUN rm -rf /usr/local/go && wget --quiet --output-document=- "https://go.dev/dl/go1.22.2.linux-amd64.tar.gz" | tar -xz -C /usr/local \
-  go version
-
+RUN rm -rf /usr/local/go && wget --quiet --output-document=- "https://go.dev/dl/go1.22.2.linux-amd64.tar.gz" | tar -xz -C /usr/local
+  
+RUN go version
 
 RUN \
   go install github.com/gopherdata/gophernotes@v0.7.5 \
