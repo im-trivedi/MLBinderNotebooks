@@ -27,11 +27,10 @@ ENV \
   GOPATH=${HOME}/go
   
 # Go Path Set
-ENV PATH="$PATH:$GOROOT/bin:$GOPATH/bin"
+ENV PATH="$PATH:$GOPATH/bin"
 RUN echo "$PATH"  \
-  && mkdir -p "$GOROOT" \
   && mkdir -p /usr/bin/dotnet \
-  && ln -s "$GOROOT" /usr/bin/dotnet
+  && ln -s /usr/bin/dotnet
 
 # Install .NET CLI dependencies
 RUN apt-get update \
