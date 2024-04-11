@@ -39,20 +39,15 @@ RUN apt-get update \
 
 RUN apt-get update && apt-get install -y curl wget git
 
-RUN rm -rf /usr/local/go && wget --quiet --output-document=- "https://go.dev/dl/go1.22.2.linux-amd64.tar.gz" | tar -xz -C /usr/local
+RUN rm -rf /usr/local/go && wget --quiet --output-document=- "https://go.dev/dl/go1.22.2.linux-amd64.tar.gz" | tar -xz -C /usr/local \
+  go version
 
-RUN go version
-
-RUN echo "$(go env GOPATH)"
 
 RUN \
   go install github.com/gopherdata/gophernotes@v0.7.5 \
   mkdir -p ~/.local/share/jupyter/kernels/gophernotes \
   cd ~/.local/share/jupyter/kernels/gophernotes \
   cp "$(go env GOPATH)"/pkg/mod/github.com/gopherdata/gophernotes@v0.7.5/kernel/*  "." \
-  # in case copied kernel.json has no write permission
-  chmod +w ./kernel.json \
-  sed "s|gophernotes|$(go env GOPATH)/bin/gophernotes|" < kernel.json.in > kernel.json \
   "$(go env GOPATH)"/bin/gophernotes
 
 # Install .NET Core SDK
