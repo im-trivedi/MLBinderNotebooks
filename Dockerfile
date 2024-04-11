@@ -58,7 +58,7 @@ RUN gophernotes_path=${HOME}/notebooks/gophernotes \
   && cd $gophernotes_path \
   && git sparse-checkout set --no-cone examples \
   && git checkout \
-  && mv $gophernotes_path/examples* $gophernotes_path/ \
+  && mv $gophernotes_path/examples/* $gophernotes_path/ \
   && rm -rf $gophernotes_path/examples
 
 # Install .NET Core SDK
