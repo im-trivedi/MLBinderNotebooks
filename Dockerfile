@@ -25,6 +25,7 @@ ENV \
   GO_VERSION=1.22.2 
   
 # Go Path Set
+ENV PATH="$PATH:/usr/lib/go/bin"
 RUN echo "$PATH"  \
   && mkdir -p /usr/bin/dotnet \
   && ln -s /usr/bin/dotnet
