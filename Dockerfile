@@ -50,7 +50,7 @@ RUN mkdir -p ~/.local/share/jupyter/kernels/gophernotes \
 
 RUN cp "$(go env GOPATH)"/pkg/mod/github.com/gopherdata/gophernotes@v0.7.5/kernel/*  "." 
 
-RUN pwd
+RUN pwd && ls -l
 
 # Install .NET Core SDK
 
