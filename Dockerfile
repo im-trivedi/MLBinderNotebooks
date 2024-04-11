@@ -50,6 +50,8 @@ RUN mkdir -p ~/.local/share/jupyter/kernels/gophernotes \
 
 RUN cp "$(go env GOPATH)"/pkg/mod/github.com/gopherdata/gophernotes@v0.7.5/kernel/*  "." 
 
+RUN pwd
+
 # Install .NET Core SDK
 
 # When updating the SDK version, the sha512 value a few lines down must also be updated.
