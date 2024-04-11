@@ -56,7 +56,7 @@ RUN wget --quiet --output-document=- "https://go.dev/dl/go${GO_VERSION}.linux-am
 
 RUN \
   go install github.com/gopherdata/gophernotes@v0.7.5 \
-  mkdir -p ~/.local/share/jupyter/kernels/gophernotes \
+  mkdir ~/.local/share/jupyter/kernels/gophernotes \
   cd ~/.local/share/jupyter/kernels/gophernotes \
   cp -r "$(go env GOPATH)"/pkg/mod/github.com/gopherdata/gophernotes@v0.7.5/kernel/*  "." \
   "$(go env GOPATH)"/bin/gophernotes
