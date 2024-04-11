@@ -55,15 +55,10 @@ RUN wget --quiet --output-document=- "https://go.dev/dl/go${GO_VERSION}.linux-am
     && go version
   
 RUN \
-  mkdir -p "$(go env GOPATH)"/src/github.com/gopherdata@0.7.5 \
-  cd "$(go env GOPATH)"/src/github.com/gopherdata@0.7.5 \
-  git clone https://github.com/gopherdata/gophernotes \
-  cd gophernotes \
-  git checkout -f v0.7.5 \
-  go install \
+  go install github.com/gopherdata/gophernotes@v0.7.5 \
   mkdir -p ~/.local/share/jupyter/kernels/gophernotes \
-  cp -r kernel/* ~/.local/share/jupyter/kernels/gophernotes \
   cd ~/.local/share/jupyter/kernels/gophernotes \
+  cp "$(go env GOPATH)"/pkg/mod/github.com/gopherdata/gophernotes@v0.7.5/kernel/*  "." \
   "$(go env GOPATH)"/bin/gophernotes
 
 # Install .NET Core SDK
