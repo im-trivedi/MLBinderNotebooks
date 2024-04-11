@@ -53,6 +53,12 @@ RUN cd ~/.local/share/jupyter/kernels/gophernotes \
   && chmod +w ./kernel.json \
   && sed "s|gophernotes|$(go env GOPATH)/bin/gophernotes|" < kernel.json.in > kernel.json
 
+RUN \
+  git clone -n --depth=1 --filter=tree:0 https://github.com/gopherdata/gophernotes ./notebooks \
+  && cd gophernotes \
+  && git sparse-checkout set --no-cone examples \
+  && git checkout
+
 # Install .NET Core SDK
 
 # When updating the SDK version, the sha512 value a few lines down must also be updated.
