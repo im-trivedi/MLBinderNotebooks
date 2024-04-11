@@ -22,6 +22,8 @@ ENV \
   # Opt out of telemetry until after we install jupyter when building the image, this prevents caching of machine id
   DOTNET_INTERACTIVE_CLI_TELEMETRY_OPTOUT=true 
 
+ENV PATH="$PATH:/usr/local/go/bin"
+
 # Install .NET CLI dependencies
 RUN apt-get update \
   && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
@@ -38,8 +40,6 @@ RUN apt-get update \
 RUN apt-get update && apt-get install -y curl wget git
 
 RUN rm -rf /usr/local/go && wget --quiet --output-document=- "https://go.dev/dl/go1.22.2.linux-amd64.tar.gz" | tar -xz -C /usr/local
-
-ENV PATH="$PATH:/usr/local/go/bin"
 
 RUN go version
 
