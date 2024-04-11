@@ -53,14 +53,13 @@ RUN cd ~/.local/share/jupyter/kernels/gophernotes \
   && chmod +w ./kernel.json \
   && sed "s|gophernotes|$(go env GOPATH)/bin/gophernotes|" < kernel.json.in > kernel.json
 
-RUN cd ${HOME}/notebooks \
-  && mkdir gophernotes \
-  && git clone -n --depth=1 --filter=tree:0 https://github.com/gopherdata/gophernotes ${HOME}/notebooks/gophernotes \
-  && cd gophernotes \
+RUN gophernotes_path=${HOME}/notebooks/gophernotes \ 
+  && git clone -n --depth=1 --filter=tree:0 https://github.com/gopherdata/gophernotes $gophernotes_path \
+  && cd $gophernotes_path \
   && git sparse-checkout set --no-cone examples \
   && git checkout \
-  && mv ./notebooks/gophernotes/examples* ./notebooks/gophernotes/ \
-  && rm -rf ./notebooks/gophernotes/examples
+  && mv $gophernotes_path/examples* $gophernotes_path/ \
+  && rm -rf $gophernotes_path/examples
 
 # Install .NET Core SDK
 
