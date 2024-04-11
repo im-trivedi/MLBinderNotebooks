@@ -58,10 +58,7 @@ RUN \
   go install github.com/gopherdata/gophernotes@v0.7.5 \
   mkdir -p ~/.local/share/jupyter/kernels/gophernotes \
   cd ~/.local/share/jupyter/kernels/gophernotes \
-  cp "$(go env GOPATH)"/pkg/mod/github.com/gopherdata/gophernotes@v0.7.5/kernel/*  "." \
-  # in case copied kernel.json has no write permission
-  chmod +w ./kernel.json \
-  sed "s|gophernotes|$(go env GOPATH)/bin/gophernotes|" < kernel.json.in > kernel.json \
+  cp -r "$(go env GOPATH)"/pkg/mod/github.com/gopherdata/gophernotes@v0.7.5/kernel/*  "." \
   "$(go env GOPATH)"/bin/gophernotes
 
 # Install .NET Core SDK
