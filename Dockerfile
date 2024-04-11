@@ -40,9 +40,9 @@ RUN apt-get update && apt-get install -y curl wget git
 # Install .NET Core SDK
 
 # When updating the SDK version, the sha512 value a few lines down must also be updated.
-ENV DOTNET_SDK_VERSION 7.0.203
+ENV DOTNET_SDK_VERSION 8.0.204
 
-RUN dotnet_sdk_version=7.0.203 \
+RUN dotnet_sdk_version=8.0.204 \
   && curl -SL --output dotnet.tar.gz https://dotnetcli.azureedge.net/dotnet/Sdk/$dotnet_sdk_version/dotnet-sdk-$dotnet_sdk_version-linux-x64.tar.gz \
   && dotnet_sha512='ed1ae7cd88591ec52e1515c4a25d9a832eca29e8a0889549fea35a320e6e356e3806a17289f71fc0b04c36b006ae74446c53771d976c170fcbe5977ac7db1cb6' \
   && echo "$dotnet_sha512 dotnet.tar.gz" | sha512sum -c - \
