@@ -21,10 +21,6 @@ ENV \
   NUGET_XMLDOC_MODE=skip \
   # Opt out of telemetry until after we install jupyter when building the image, this prevents caching of machine id
   DOTNET_INTERACTIVE_CLI_TELEMETRY_OPTOUT=true \
-  
-RUN echo "$PATH"  \
-  && mkdir -p /usr/bin/dotnet \
-  && ln -s /usr/bin/dotnet
 
 # Install .NET CLI dependencies
 RUN apt-get update \
