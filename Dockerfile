@@ -1,5 +1,4 @@
 FROM jupyter/base-notebook:latest
-FROM gopherdata/gophernotes
 
 # Install .NET CLI dependencies
 
@@ -23,7 +22,7 @@ ENV \
   # Opt out of telemetry until after we install jupyter when building the image, this prevents caching of machine id
   DOTNET_INTERACTIVE_CLI_TELEMETRY_OPTOUT=true \
   # Go Version
-  GO_VERSION=1.21.0 \
+  GO_VERSION=1.22.2 \
   # Go Root Path
   GOROOT=/usr/share/go \
   # Go Path
@@ -54,6 +53,21 @@ RUN apt-get update && apt-get install -y curl wget git
 # Install Go
 RUN wget --quiet --output-document=- "https://go.dev/dl/go${GO_VERSION}.linux-amd64.tar.gz" | tar -xz \
     && go version
+
+RUN \
+  mkdir -p "$(go env GOPATH)"/src/github.com/gopherdata \
+  cd "$(go env GOPATH)"/src/github.com/gopherdata \
+  git clone https://github.com/gopherdata/gophernotes \
+  cd gophernotes \
+  git checkout -f v0.7.5 \
+  go install \
+  mkdir -p ~/.local/share/jupyter/kernels/gophernotes \
+  cp kernel/* ~/.local/share/jupyter/kernels/gophernotes \
+  cd ~/.local/share/jupyter/kernels/gophernotes \
+  # in case copied kernel.json has no write permission
+  chmod +w ./kernel.json \
+  sed "s|gophernotes|$(go env GOPATH)/bin/gophernotes|" < kernel.json.in > kernel.json \
+  "$(go env GOPATH)"/bin/gophernotes
 
 # Install .NET Core SDK
 
