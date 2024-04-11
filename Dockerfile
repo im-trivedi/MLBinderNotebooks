@@ -53,8 +53,9 @@ RUN cd ~/.local/share/jupyter/kernels/gophernotes \
   && chmod +w ./kernel.json \
   && sed "s|gophernotes|$(go env GOPATH)/bin/gophernotes|" < kernel.json.in > kernel.json
 
-RUN mkdir ./notebooks/gophernotes \
-  && git clone -n --depth=1 --filter=tree:0 https://github.com/gopherdata/gophernotes ./notebooks/gophernotes \
+RUN cd ${HOME}/notebooks \
+  && mkdir gophernotes \
+  && git clone -n --depth=1 --filter=tree:0 https://github.com/gopherdata/gophernotes ${HOME}/notebooks/gophernotes \
   && cd gophernotes \
   && git sparse-checkout set --no-cone examples \
   && git checkout \
