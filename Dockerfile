@@ -48,7 +48,7 @@ RUN apt-get update && apt-get install -y curl wget git
 RUN jupyter --data-dir
 
 # Install Go
-RUN wget --quiet --output-document=- "https://go.dev/dl/go${GO_VERSION}.linux-amd64.tar.gz" | tar -xz \
+RUN wget --quiet --output-document=- "https://go.dev/dl/go${GO_VERSION}.linux-amd64.tar.gz" | tar -xz -C /usr/local \
     && go version
   
 RUN go install github.com/gopherdata/gophernotes@v0.7.5
