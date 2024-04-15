@@ -20,9 +20,11 @@ ENV \
   # Skip extraction of XML docs - generally not useful within an image/container - helps performance
   NUGET_XMLDOC_MODE=skip \
   # Opt out of telemetry until after we install jupyter when building the image, this prevents caching of machine id
-  DOTNET_INTERACTIVE_CLI_TELEMETRY_OPTOUT=true 
-
-ENV PATH="$PATH:/usr/local/go/bin"
+  DOTNET_INTERACTIVE_CLI_TELEMETRY_OPTOUT=true \
+  # Go Version
+  GO_VERSION=1.22.2 \
+  # Go Path
+  GOPATH=/usr/local/go
 
 # Install .NET CLI dependencies
 RUN apt-get update \
@@ -39,15 +41,17 @@ RUN apt-get update \
 
 RUN apt-get update && apt-get install -y curl wget git
 
-RUN rm -rf /usr/local/go && wget --quiet --output-document=- "https://go.dev/dl/go1.22.2.linux-amd64.tar.gz" | tar -xz -C /usr/local
+RUN rm -rf $GOPATH && wget --quiet --output-document=- "https://go.dev/dl/go${GO_VERSION}.linux-amd64.tar.gz" | tar -xz -C /usr/local
+
+# Adding Go Install Path
+ENV PATH="$PATH:$GOPATH/bin"
   
 RUN go version
 
-RUN go install github.com/gopherdata/gophernotes@v0.7.5
-
-RUN mkdir -p ~/.local/share/jupyter/kernels/gophernotes
-
-RUN cd ~/.local/share/jupyter/kernels/gophernotes \
+RUN \
+  go install github.com/gopherdata/gophernotes@v0.7.5 \
+  && mkdir -p ~/.local/share/jupyter/kernels/gophernotes \
+  && cd ~/.local/share/jupyter/kernels/gophernotes \
   && cp "$(go env GOPATH)"/pkg/mod/github.com/gopherdata/gophernotes@v0.7.5/kernel/*  "."  \
   # in case copied kernel.json has no write permission
   && chmod +w ./kernel.json \
