@@ -24,7 +24,7 @@ ENV \
   # Go Version
   GO_VERSION=1.22.2 \
   # Go Path
-  GOPATH=/usr/local/go
+  GO_INSTALL=/usr/local/go
 
 # Install .NET CLI dependencies
 RUN apt-get update \
@@ -41,10 +41,10 @@ RUN apt-get update \
 
 RUN apt-get update && apt-get install -y curl wget git
 
-RUN rm -rf $GOPATH && wget --quiet --output-document=- "https://go.dev/dl/go${GO_VERSION}.linux-amd64.tar.gz" | tar -xz -C /usr/local
+RUN rm -rf $GO_INSTALL && wget --quiet --output-document=- "https://go.dev/dl/go${GO_VERSION}.linux-amd64.tar.gz" | tar -xz -C /usr/local
 
 # Adding Go Install Path
-ENV PATH="$PATH:$GOPATH/bin"
+ENV PATH="$PATH:$GO_INSTALL/bin"
   
 RUN go version
 
